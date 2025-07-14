@@ -4,77 +4,68 @@ document.addEventListener("DOMContentLoaded", () => {
   if (path.includes("formularioCarga.html")) {
     inicializarFormulario();
   } else if (path.includes("index.html")) {
-    cargarYRenderizarArticulos();
     inicializarModal();
+    cargarYRenderizarArticulos();
   } else if (path.includes("formularioEdicion.html")) {
     inicializarFormularioEdicion();
   }
 });
 
+let articulosLocales = [];
+let articulosJSON = [];
+let articuloAEliminar = null;
+
+async function cargarYRenderizarArticulos() {
+  articulosLocales = obtenerArticulosLocal();
+
+  try {
+    const response = await fetch("../data/articulos.json");
+    if (!response.ok) throw new Error("No se pudo cargar el JSON.");
+    articulosJSON = await response.json();
+  } catch (error) {
+    console.error("Error JSON:", error);
+    articulosJSON = [];
+  }
+
+  renderizarArticulos();
+}
+
 function obtenerArticulosLocal() {
   return JSON.parse(localStorage.getItem("articulos")) || [];
 }
 
-function guardarArticulos(articulos) {
+function guardarArticulosLocal(articulos) {
   localStorage.setItem("articulos", JSON.stringify(articulos));
-}
-
-let articuloAEliminar = null;
-let articulosLocalesGlobal = [];
-let articulosJSONGlobal = [];
-
-// Función principal combinada con fetch
-async function cargarYRenderizarArticulos() {
-  const listaArticulos = document.getElementById("lista-articulos");
-  if (!listaArticulos) return;
-
-  listaArticulos.innerHTML = "<p>Cargando artículos...</p>";
-
-  articulosLocalesGlobal = obtenerArticulosLocal();
-  try {
-    const response = await fetch("../data/articulos.json");
-    if (!response.ok) throw new Error("No se pudo cargar el archivo JSON.");
-    articulosJSONGlobal = await response.json();
-  } catch (error) {
-    console.error("Error al cargar artículos desde JSON:", error);
-    articulosJSONGlobal = [];
-  }
-
-  renderizarArticulos();
 }
 
 function renderizarArticulos() {
   const listaArticulos = document.getElementById("lista-articulos");
   listaArticulos.innerHTML = "";
 
-  articulosJSONGlobal.forEach((articulo) => {
-    const div = document.createElement("div");
-    div.className = "blog-container";
-    div.innerHTML = `
-      <h2>${articulo.titulo}</h2>
-      <p>${articulo.contenido}</p>
-      <div class="blog-footer">
-        <p>${articulo.fecha || "Fecha no disponible"}</p>
-      </div>
-    `;
-    listaArticulos.appendChild(div);
+  articulosJSON.forEach((art) => {
+    listaArticulos.innerHTML += `
+      <div class="blog-container">
+        <h2>${art.titulo}</h2>
+        <p>${art.contenido}</p>
+        <div class="blog-footer">
+          <p>${art.fecha || "Fecha no disponible"}</p>
+        </div>
+      </div>`;
   });
 
-  articulosLocalesGlobal.forEach((articulo, index) => {
-    const div = document.createElement("div");
-    div.className = "blog-container";
-    div.innerHTML = `
-      <h2>${articulo.titulo}</h2>
-      <p>${articulo.contenido}</p>
-      <div class="blog-footer">
-        <p>${articulo.fecha || "Fecha no disponible"}</p>
-        <div>
-          <button onclick="editarArticulo(${index})">Editar</button>
-          <button onclick="eliminarArticulo(${index})">Eliminar</button>
+  articulosLocales.forEach((art, index) => {
+    listaArticulos.innerHTML += `
+      <div class="blog-container">
+        <h2>${art.titulo}</h2>
+        <p>${art.contenido}</p>
+        <div class="blog-footer">
+          <p>${art.fecha || "Fecha no disponible"}</p>
+          <div>
+            <button onclick="editarArticulo(${index})">Editar</button>
+            <button onclick="eliminarArticulo(${index})">Eliminar</button>
+          </div>
         </div>
-      </div>
-    `;
-    listaArticulos.appendChild(div);
+      </div>`;
   });
 }
 
@@ -98,7 +89,7 @@ function inicializarFormulario() {
 
     const articulos = obtenerArticulosLocal();
     articulos.unshift(nuevoArticulo);
-    guardarArticulos(articulos);
+    guardarArticulosLocal(articulos);
 
     mensaje.style.display = "block";
     form.reset();
@@ -136,7 +127,7 @@ function inicializarFormularioEdicion() {
       contenido: contenidoInput.value.trim(),
     };
 
-    guardarArticulos(nuevosArticulos);
+    guardarArticulosLocal(nuevosArticulos);
     localStorage.removeItem("articuloEditar");
 
     mensaje.style.display = "block";
@@ -148,8 +139,8 @@ function inicializarFormularioEdicion() {
 }
 
 function editarArticulo(index) {
-  const articulosLocales = obtenerArticulosLocal();
-  const articulo = articulosLocales[index];
+  const articulos = obtenerArticulosLocal();
+  const articulo = articulos[index];
 
   localStorage.setItem(
     "articuloEditar",
@@ -163,12 +154,12 @@ function inicializarModal() {
   const btnConfirmar = document.getElementById("btn-confirmar");
   const btnCancelar = document.getElementById("btn-cancelar");
 
-  if (btnConfirmar && btnCancelar && modal) {
+  if (btnConfirmar && btnCancelar) {
     btnConfirmar.addEventListener("click", () => {
       if (articuloAEliminar !== null) {
-        const articulos = obtenerArticulosLocal();
+        let articulos = obtenerArticulosLocal();
         articulos.splice(articuloAEliminar, 1);
-        guardarArticulos(articulos);
+        guardarArticulosLocal(articulos);
         cargarYRenderizarArticulos();
         articuloAEliminar = null;
         modal.style.display = "none";
@@ -184,8 +175,8 @@ function inicializarModal() {
 
 function eliminarArticulo(index) {
   articuloAEliminar = index;
-  const modal = document.getElementById("modal-eliminar");
-  if (modal) {
-    modal.style.display = "flex";
-  }
+  document.getElementById("modal-eliminar").style.display = "flex";
 }
+
+window.eliminarArticulo = eliminarArticulo;
+window.editarArticulo = editarArticulo;

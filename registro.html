@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro | VideoIngenieriaViral</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <hr class="line-pages" />
+      <div class="header-containe">
+        <div class="logo-container">
+          <img
+            src="assets/img/logoVIV.png"
+            alt="Logo VideoIngenieriaViral"
+            class="logo"
+          />
+        </div>
+        <h1 class="header-title">VIDEO INGENIERIA VIRAL</h1>
+      </div>
+    </header>
+
+    <main>
+      <section class="form-section">
+        <h2>Crear Cuenta</h2>
+        <form id="registroForm">
+          <input
+            type="text"
+            id="nuevoUsuario"
+            placeholder="Nombre de usuario"
+            required
+          />
+          <input
+            type="password"
+            id="nuevaPassword"
+            placeholder="Contraseña"
+            required
+          />
+          <button type="submit">Registrarse</button>
+          <p id="mensaje-registro-error">
+            El nombre de usuario ya está registrado.
+          </p>
+          <p id="mensaje-registro-exito">¡Usuario registrado con éxito!</p>
+        </form>
+        <p style="margin-top: 10px">
+          ¿Ya tenés cuenta? <a href="login.html">Iniciar Sesión</a>
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="redes-container">
+        <p>Nuestras Redes</p>
+        <ul class="redes-footer">
+          <li>
+            <a href="#"
+              ><img src="assets/img/logoInstagram.png" alt="Instagram"
+            /></a>
+          </li>
+          <li>
+            <a href="#"
+              ><img src="assets/img/logoLinkedIn.png" alt="LinkedIn"
+            /></a>
+          </li>
+          <li>
+            <a href="#"
+              ><img
+                src="assets/img/logoYouTube.png"
+                alt="YouTube"
+                class="img-footerYoutube"
+            /></a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+    <hr class="line-pages" />
+
+    <script src="js/registro.js"></script>
+  </body>
+</html>

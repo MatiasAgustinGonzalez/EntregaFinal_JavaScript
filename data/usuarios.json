@@ -1,0 +1,18 @@
+[
+  {
+    "usuario": "admin",
+    "password": "admin123"
+  },
+  {
+    "usuario": "matiasg",
+    "password": "ingenieria2025"
+  },
+  {
+    "usuario": "operario1",
+    "password": "plastico456"
+  },
+  {
+    "usuario": "supervisor",
+    "password": "control789"
+  }
+]
