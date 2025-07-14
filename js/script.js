@@ -1,19 +1,17 @@
-// Detectar en qué página estamos
 document.addEventListener("DOMContentLoaded", () => {
   const path = window.location.pathname;
 
   if (path.includes("formularioCarga.html")) {
     inicializarFormulario();
   } else if (path.includes("index.html")) {
-    renderizarArticulos();
+    cargarYRenderizarArticulos();
     inicializarModal();
   } else if (path.includes("formularioEdicion.html")) {
     inicializarFormularioEdicion();
   }
 });
 
-// Obtener y guardar artículos
-function obtenerArticulos() {
+function obtenerArticulosLocal() {
   return JSON.parse(localStorage.getItem("articulos")) || [];
 }
 
@@ -21,22 +19,50 @@ function guardarArticulos(articulos) {
   localStorage.setItem("articulos", JSON.stringify(articulos));
 }
 
-// Variables para control de eliminación
 let articuloAEliminar = null;
+let articulosLocalesGlobal = [];
+let articulosJSONGlobal = [];
 
-// Renderizar artículos con botones
-function renderizarArticulos() {
+// Función principal combinada con fetch
+async function cargarYRenderizarArticulos() {
   const listaArticulos = document.getElementById("lista-articulos");
-  const articulos = obtenerArticulos();
-
   if (!listaArticulos) return;
 
+  listaArticulos.innerHTML = "<p>Cargando artículos...</p>";
+
+  articulosLocalesGlobal = obtenerArticulosLocal();
+  try {
+    const response = await fetch("../data/articulos.json");
+    if (!response.ok) throw new Error("No se pudo cargar el archivo JSON.");
+    articulosJSONGlobal = await response.json();
+  } catch (error) {
+    console.error("Error al cargar artículos desde JSON:", error);
+    articulosJSONGlobal = [];
+  }
+
+  renderizarArticulos();
+}
+
+function renderizarArticulos() {
+  const listaArticulos = document.getElementById("lista-articulos");
   listaArticulos.innerHTML = "";
 
-  articulos.forEach((articulo, index) => {
+  articulosJSONGlobal.forEach((articulo) => {
     const div = document.createElement("div");
     div.className = "blog-container";
+    div.innerHTML = `
+      <h2>${articulo.titulo}</h2>
+      <p>${articulo.contenido}</p>
+      <div class="blog-footer">
+        <p>${articulo.fecha || "Fecha no disponible"}</p>
+      </div>
+    `;
+    listaArticulos.appendChild(div);
+  });
 
+  articulosLocalesGlobal.forEach((articulo, index) => {
+    const div = document.createElement("div");
+    div.className = "blog-container";
     div.innerHTML = `
       <h2>${articulo.titulo}</h2>
       <p>${articulo.contenido}</p>
@@ -48,12 +74,10 @@ function renderizarArticulos() {
         </div>
       </div>
     `;
-
     listaArticulos.appendChild(div);
   });
 }
 
-// Formulario de carga
 function inicializarFormulario() {
   const form = document.getElementById("blogForm");
   const mensaje = document.getElementById("mensaje-exito");
@@ -72,7 +96,7 @@ function inicializarFormulario() {
       fecha: new Date().toLocaleDateString("es-AR"),
     };
 
-    const articulos = obtenerArticulos();
+    const articulos = obtenerArticulosLocal();
     articulos.unshift(nuevoArticulo);
     guardarArticulos(articulos);
 
@@ -85,7 +109,6 @@ function inicializarFormulario() {
   });
 }
 
-// Formulario de edición
 function inicializarFormularioEdicion() {
   const form = document.getElementById("editForm");
   const tituloInput = document.getElementById("titulo");
@@ -106,7 +129,7 @@ function inicializarFormularioEdicion() {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const nuevosArticulos = obtenerArticulos();
+    const nuevosArticulos = obtenerArticulosLocal();
     nuevosArticulos[data.index] = {
       ...nuevosArticulos[data.index],
       titulo: tituloInput.value.trim(),
@@ -124,10 +147,9 @@ function inicializarFormularioEdicion() {
   });
 }
 
-// Editar artículo
 function editarArticulo(index) {
-  const articulos = obtenerArticulos();
-  const articulo = articulos[index];
+  const articulosLocales = obtenerArticulosLocal();
+  const articulo = articulosLocales[index];
 
   localStorage.setItem(
     "articuloEditar",
@@ -136,23 +158,18 @@ function editarArticulo(index) {
   window.location.href = "formularioEdicion.html";
 }
 
-// Modal de eliminación
 function inicializarModal() {
-  console.log("Inicializando modal...");
-
   const modal = document.getElementById("modal-eliminar");
   const btnConfirmar = document.getElementById("btn-confirmar");
   const btnCancelar = document.getElementById("btn-cancelar");
 
-  console.log(modal, btnConfirmar, btnCancelar);
-
   if (btnConfirmar && btnCancelar && modal) {
     btnConfirmar.addEventListener("click", () => {
       if (articuloAEliminar !== null) {
-        const articulos = obtenerArticulos();
+        const articulos = obtenerArticulosLocal();
         articulos.splice(articuloAEliminar, 1);
         guardarArticulos(articulos);
-        renderizarArticulos();
+        cargarYRenderizarArticulos();
         articuloAEliminar = null;
         modal.style.display = "none";
       }

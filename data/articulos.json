@@ -1,0 +1,52 @@
+[
+  {
+    "titulo": "Avances en Moldes de Inyección de Alta Precisión",
+    "contenido": "Los moldes de inyección de alta precisión permiten fabricar piezas plásticas con tolerancias mínimas, clave en sectores como automotriz y electrónica. Incorporan sistemas de refrigeración conformal, materiales con mayor conductividad térmica y sensores IoT para monitorear parámetros críticos. Esto garantiza ciclos de producción más cortos, menos desperdicio y una calidad constante en cada lote fabricado, mejorando la competitividad industrial.",
+    "fecha": "01 de agosto de 2025"
+  },
+  {
+    "titulo": "Nuevas Técnicas de Reciclado de Plásticos Post-Consumo",
+    "contenido": "El reciclado de plásticos post-consumo ha evolucionado incorporando técnicas de separación por infrarrojo, flotación y molienda criogénica. Esto permite recuperar materiales como PET, HDPE y polipropileno con alta pureza. Las nuevas líneas de reciclaje integran controles automáticos que ajustan parámetros según el tipo de residuo, generando pellets de calidad aptos para productos industriales o de consumo masivo, reduciendo el impacto ambiental.",
+    "fecha": "05 de agosto de 2025"
+  },
+  {
+    "titulo": "Optimización Energética en Prensas de Inyección",
+    "contenido": "Las prensas de inyección modernas combinan sistemas hidráulicos y eléctricos para optimizar el consumo energético sin sacrificar velocidad o presión. A través de servo-motores y variadores de frecuencia, se logra reducir hasta un 40% el gasto eléctrico comparado con equipos tradicionales. Además, el mantenimiento predictivo ayuda a detectar desgastes y fugas antes de que afecten el proceso, garantizando eficiencia continua.",
+    "fecha": "08 de agosto de 2025"
+  },
+  {
+    "titulo": "Industria 4.0 en la Inyección de Plásticos",
+    "contenido": "La Industria 4.0 ha transformado el sector de la inyección de plásticos, integrando software MES, controladores PLC avanzados y plataformas en la nube. Las máquinas ahora pueden autodiagnosticarse y reportar fallas o desvíos en tiempo real. Esto permite a los operarios y supervisores tomar decisiones informadas rápidamente, mejorando tiempos de respuesta y reduciendo paradas no programadas dentro de la planta.",
+    "fecha": "11 de agosto de 2025"
+  },
+  {
+    "titulo": "Uso de Bioplásticos en Moldes de Inyección",
+    "contenido": "Los bioplásticos representan una alternativa sostenible en la fabricación de piezas mediante inyección. Polímeros como PLA y PHA se adaptan a moldes estándar con mínimas modificaciones, aunque requieren ajustes específicos en temperatura y presión. Las empresas que adoptan bioplásticos deben capacitar a su personal en técnicas de procesamiento, ya que la degradabilidad del material implica retos en almacenamiento y manipulación.",
+    "fecha": "14 de agosto de 2025"
+  },
+  {
+    "titulo": "Mantenimiento Preventivo de Moldes y Prensas",
+    "contenido": "El mantenimiento preventivo en moldes de inyección y prensas es clave para asegurar la productividad y evitar pérdidas por fallas inesperadas. Las rutinas incluyen limpieza, lubricación, control de holguras y reemplazo programado de piezas. Con el apoyo de sensores IoT y sistemas de monitoreo remoto, hoy es posible programar intervenciones solo cuando realmente son necesarias, optimizando costos y tiempos de parada.",
+    "fecha": "17 de agosto de 2025"
+  },
+  {
+    "titulo": "Estrategias de Economía Circular en la Inyección de Plásticos",
+    "contenido": "Implementar modelos de economía circular en la industria plástica implica rediseñar procesos para reincorporar materiales reciclados, optimizar el uso de recursos y prolongar la vida útil de los moldes. Esto requiere integrar líneas de molienda y reprocesado dentro de la misma planta, adaptando máquinas para trabajar con porcentajes variables de material reciclado, garantizando calidad sin comprometer la resistencia estructural de las piezas.",
+    "fecha": "20 de agosto de 2025"
+  },
+  {
+    "titulo": "Integración de Robótica Colaborativa en Líneas de Inyección",
+    "contenido": "Los robots colaborativos, o cobots, se están incorporando en las plantas de inyección para realizar tareas como la extracción de piezas, control de calidad o apilado de productos terminados. Su flexibilidad permite adaptarse a múltiples formatos sin grandes reprogramaciones. Además, su tamaño compacto facilita la integración sin modificar de forma drástica el layout de producción existente, mejorando la eficiencia general.",
+    "fecha": "23 de agosto de 2025"
+  },
+  {
+    "titulo": "Sistemas de Control de Calidad Automático en Inyección",
+    "contenido": "El control de calidad en tiempo real es esencial para asegurar la consistencia de las piezas plásticas fabricadas. Se utilizan cámaras de visión artificial, sensores láser y sistemas de pesaje automático que detectan piezas defectuosas inmediatamente al salir del molde. Esto permite reducir desperdicio, minimizar reprocesos y garantizar que solo productos conformes lleguen al cliente, sin necesidad de inspección manual intensiva.",
+    "fecha": "26 de agosto de 2025"
+  },
+  {
+    "titulo": "Impacto Ambiental de la Inyección de Plásticos: Mitigación",
+    "contenido": "La industria de inyección de plásticos trabaja activamente en reducir su huella ambiental mediante el uso de energía renovable, optimización de ciclos de inyección y desarrollo de polímeros biodegradables. Además, se promueve la utilización de moldes diseñados para reducir el peso de las piezas sin perder resistencia, lo que disminuye tanto el consumo de material como la cantidad de residuos generados por la producción.",
+    "fecha": "29 de agosto de 2025"
+  }
+]
